@@ -1,3 +1,3 @@
-import { cards } from './cards';
+import { cardsSemantic } from './cards';
 
-export const cards_arr = cards;
+export const semantic = cardsSemantic();
