@@ -1,0 +1,34 @@
+/* 
+    Size
+*/
+$indents: (margin, padding);
+@mixin setProp($props, $name, $value) {
+    @each $prop in $props {
+        #{$prop}-#{$name}: $value;
+    }
+}
+
+$small: 2px;
+$medium: 5px;
+$large: 7px;
+
+$paddingSmall: $small;
+$paddingMedium: $medium;
+$paddingLarge: $large;
+
+$marginSmall: $small;
+$marginMedium: $medium;
+$marginLarge: $large;
+
+$borderRadSmall: $small; 
+$borderRadMedium: $medium;
+$borderRadLarge: $large;
+
+$transitionSmall: 0.5s;
+$transitionMedium: 1s;
+$transitionLarge: 1.75s;
+
+/*
+    Color
+*/
+$gray: #808080;

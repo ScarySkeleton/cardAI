@@ -1,5 +1,15 @@
+@import '../../styles/variables.scss';
+
 .card {
     max-width: 100px;
     max-height: 100px;
-    margin: 5px;
+    margin: $marginMedium;
+    padding: $paddingMedium;
+    cursor: pointer;
+    transition: $transitionMedium;
+
+    &:hover {
+        background-color: $gray;
+        border-radius: $borderRadSmall;
+    }
 }

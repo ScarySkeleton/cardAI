@@ -11,6 +11,11 @@ class Card extends PureComponent {
             cards: cards()
         }
     }
+
+    componentDidMount() {
+        console.log("finish");
+    }
+
     render() {
         return (
             <div>
@@ -20,7 +25,7 @@ class Card extends PureComponent {
                             src={require('../../img/cards' + el.slice(1))}
                             className='card'
                             key={index}
-                            alt="CARD" />
+                            alt="smart-card-games" />
                     })
                 }
             </div>
