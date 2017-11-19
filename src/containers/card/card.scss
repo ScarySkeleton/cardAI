@@ -1,15 +1,20 @@
 @import '../../styles/variables.scss';
 
-.card {
-    max-width: 100px;
-    max-height: 100px;
-    margin: $marginMedium;
-    padding: $paddingMedium;
-    cursor: pointer;
-    transition: $transitionSmall;
 
-    &:hover {
-        background-color: $gray;
-        border-radius: $borderRadSmall;
+.card__block {
+
+    display: inline;
+    &_img {
+        max-width: 100px;
+        max-height: 100px;
+        margin: $marginMedium;
+        padding: $paddingMedium;
+        cursor: pointer;
+        transition: $transitionSmall;
+    
+        &:hover {
+            background-color: $gray;
+            border-radius: $borderRadSmall;
+        }
     }
 }

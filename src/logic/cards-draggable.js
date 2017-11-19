@@ -60,7 +60,7 @@ let draggable = (function() {
         if(elem === null) {
             return null;
         }
-        return elem.closest('.card');
+        return elem.closest('.card__block');
     }
 
     const mousedown = (e) => {         
@@ -69,7 +69,7 @@ let draggable = (function() {
             return;
         }
     
-        let elem = e.target.closest('.card');    
+        let elem = e.target.closest('.card__block_img');    
         // if card drag on the empty place
         if(!elem) {
             return;

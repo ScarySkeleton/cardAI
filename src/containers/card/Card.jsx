@@ -21,11 +21,14 @@ class Card extends PureComponent {
             <div>
                 {
                     this.state.cards.map((el, index) => {
-                        return <img
-                            src={require('../../img/cards' + el.slice(1))}
-                            className='card'
-                            key={index}
-                            alt="smart-card-games" />
+                        return (
+                            <div className='container card__block' key={index}>
+                                <img
+                                    src={require('../../img/cards' + el.slice(1))}
+                                    className='card__block_img'
+                                    alt="smart-card-games" />
+                            </div>
+                        )
                     })
                 }
             </div>
