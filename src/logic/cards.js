@@ -42,7 +42,6 @@ export const cardsSemantic = (function() {
         
         return +weight;
     }
-    console.log(cardsArr);
 });
 
 const muzzles_weight = [

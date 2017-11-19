@@ -13,7 +13,7 @@ class Card extends PureComponent {
     }
 
     componentDidMount() {
-        console.log("finish");
+         logic.dragable();
     }
 
     render() {
