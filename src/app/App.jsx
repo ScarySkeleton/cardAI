@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Card from '../containers/card/Card.jsx';
+import Field from '../containers/field/Field.jsx';
 
 const App = () => (
     <div>
-        <Card />
+        <Field />
     </div>
 )
 

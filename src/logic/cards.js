@@ -1,7 +1,14 @@
 import { importAll } from './Utils';
 
 export const cards = (function() {
-    return importAll();
+    let cards = importAll();
+    cards =  cards.map(el => {
+        return {
+            path: el,
+            name: getName(getFullInfo(el))
+        }
+    })
+    return cards;
 });
 
 export const cardsSemantic = (function() {
@@ -11,7 +18,8 @@ export const cardsSemantic = (function() {
     const cardsArr = [];
     cards().forEach(function(element) {
         const card = {};
-        const nameAndSuit = getFullInfo(element);
+        const path = element.path;
+        const nameAndSuit = getFullInfo(path);
 
         card.name = getName(nameAndSuit);
         card.suit = getSuit(nameAndSuit);
@@ -19,30 +27,40 @@ export const cardsSemantic = (function() {
         cardsArr.push(card);
     });
 
-    function getFullInfo(element) {
-        const split = element.split('_');
-        return split[0].slice(element.indexOf('/') + 1, element.indexOf('_')) + split[split.length - 1].slice(0, 1);
-    }
-    function getName(full) {
-        return full.slice(0, name.length - 1);
-    }
-    function getSuit(full) {
-        return full.slice(full.length - 1);
-    }
-    function getWeight(name) {
-        let weight = name;
-        if(isNaN(weight)) {
-            muzzles_weight.forEach((muzzles) => {
-                if(muzzles.name === weight) {
-                    weight = muzzles.weight;
-                    return +weight;
-                }
-            })
-        }
-        
-        return +weight;
-    }
+    return cardsArr;
 });
+
+function getFullInfo(element) {
+    const split = element.split('_');
+    return split[0].slice(element.indexOf('/') + 1, element.indexOf('_')) + split[split.length - 1].slice(0, 1);
+}
+function getName(full) {
+    return full.slice(0, name.length - 1);
+}
+function getSuit(full) {
+    return full.slice(full.length - 1);
+}
+export function getWeight(name) {
+    let weight = name;
+    if(isNaN(weight)) {
+        return getMuzzleWeight(findMuzzles(weight));
+    }
+    
+    return +weight;
+}
+function findMuzzles(name) {
+    let muz;
+    muzzles_weight.forEach(muzzle => {
+        if(muzzle.name === name) {
+            muz =  muzzle;
+            return;
+        }
+    })
+    return muz;
+}
+function getMuzzleWeight(muzzle) {
+    return +muzzle.weight;
+}
 
 const muzzles_weight = [
     {
@@ -62,3 +80,6 @@ const muzzles_weight = [
         weight: 14,
     }
 ];
+
+// Козырь
+export const trump_weight = 10;

@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+.field {
+    display: flex;
+    min-height: 100px;
+    min-width: 100px;
+
+    padding: $paddingMedium;
+
+    &__desk {
+        width: 60%;
+        padding: $paddingSmall;
+        background-color: $lemon;
+        border: 1px solid $gold;
+    }
+
+    &__cards {
+        width: 40%;
+        padding: $paddingSmall;
+        background-color: $lightYellow;
+    }
+}
