@@ -2,16 +2,35 @@
 
 .field {
     display: flex;
-    min-height: 100px;
-    min-width: 100px;
-
     padding: $paddingMedium;
 
     &__desk {
         width: 60%;
         padding: $paddingSmall;
         background-color: $lemon;
-        border: 1px solid $gold;
+        border: $borderRadSmall solid $gold;
+
+        &-pc {
+            min-height: calc(#{$cardSizeMedium} + #{$paddingSmall});
+            padding: $paddingSmall;
+            background-color: $lightPink;
+            border: $borderRadSmall solid $gold;
+        }
+
+        &-game {
+            min-height: multiplySelf($cardSizeMedium, 1);
+            margin: $marginMedium;
+            padding: $paddingMedium;
+            background-color: $lightYellow;
+            border: $borderRadSmall solid $gold;
+        }
+
+        &-human {
+            min-height: calc(#{$cardSizeMedium} + #{$paddingSmall});
+            padding: $paddingSmall;
+            background-color: Pink;
+            border: $borderRadSmall solid $gold;
+        }
     }
 
     &__cards {

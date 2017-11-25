@@ -12,6 +12,10 @@ $small: 2px;
 $medium: 5px;
 $large: 7px;
 
+$cardSizeSmall: 50px;
+$cardSizeMedium: 100px;
+$cardSizeLarge: 150px;
+
 $paddingSmall: $small;
 $paddingMedium: $medium;
 $paddingLarge: $large;
@@ -20,7 +24,7 @@ $marginSmall: $small;
 $marginMedium: $medium;
 $marginLarge: $large;
 
-$borderRadSmall: $small; 
+$borderRadSmall: 1px; 
 $borderRadMedium: $medium;
 $borderRadLarge: $large;
 
@@ -40,3 +44,14 @@ $lightYellow: #FFFFE0;
 $yellow: #FFFF00;
 $gold: #FFD700;
 $lemon: #FFFACD;
+
+/*
+    Utils
+*/
+@function multiplySelf($val1, $times) {
+    @while $times > 0 {
+        $val1: $val1 + $val1;
+        $times: $times - 1;
+    }
+    @return $val1;
+}
