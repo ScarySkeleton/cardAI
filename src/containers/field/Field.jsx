@@ -8,12 +8,21 @@ class Field extends PureComponent {
         super(props);
     }
 
+    startPlay() {
+        console.log("HERE");
+    }
+
     render() {
 
         return (
             <div className='container field'>
                 <div className='field__desk'>
                     This is card game!
+                    <div className='field__desk-action'>
+                        <button onClick={this.startPlay}>
+                            Start play
+                        </button>
+                    </div>
                     <div className='field__desk-pc'>
                     </div>
                     <div className='field__desk-game'>
@@ -25,7 +34,7 @@ class Field extends PureComponent {
                     <div className='field__desk-human'>
                     </div>
                 </div>
-                
+
                 <div className='field__cards'>
                     <Card />
                 </div>

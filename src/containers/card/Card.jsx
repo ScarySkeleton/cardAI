@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react';
 
 import './card.scss';
-import { cards, getWeight } from '../../logic/cards';
 import * as logic from '../../logic/logic';
 
 class Card extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            cards: cards()
+            cards: logic.cards()
         }
     }
 
@@ -17,7 +16,7 @@ class Card extends PureComponent {
     }
 
     getGreater(el1, el2) {
-        return getWeight(el1) > getWeight(el2) ? 1 : -1;
+        return logic.getWeight(el1) > logic.getWeight(el2) ? 1 : -1;
     }
 
     render() {

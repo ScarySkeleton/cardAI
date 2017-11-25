@@ -1,6 +1,6 @@
 import { importAll } from './Utils';
 
-export const cards = (function() {
+export const cardsShow = (function() {
     let cards = importAll();
     cards =  cards.map(el => {
         return {
@@ -16,7 +16,7 @@ export const cardsSemantic = (function() {
         C - clubs - xpect; d - diamonds - buba; h - hearts - cerdechko; s - spades - pika;
     */
     const cardsArr = [];
-    cards().forEach(function(element) {
+    cardsShow().forEach(function(element) {
         const card = {};
         const path = element.path;
         const nameAndSuit = getFullInfo(path);

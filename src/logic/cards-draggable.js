@@ -58,6 +58,7 @@ let draggable = (function() {
         // that our card trying to put on some other field
         if(!dropElem) {
             dragObject.avatar.rollBack();
+            return;
         }
 
         insertBlockToTheGameField(createBlockForDraggableCard(dragObject.elem), gameFieldCurrentPlay);
