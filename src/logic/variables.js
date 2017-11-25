@@ -12,5 +12,6 @@ export const cardImgBlockHangUpClass = '.field__img-hangUp';
 /* 
     Card 
 */
+export const cardImg = 'card__block-img';
 export const cardImgClass = '.card__block-img';
 export const cardParentInitBlock = 'card__block';

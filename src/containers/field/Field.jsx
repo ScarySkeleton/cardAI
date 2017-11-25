@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 
 import './field.scss';
 import Card from '../card/Card.jsx';
+import * as logic from '../../logic/logic';
 
 class Field extends PureComponent {
     constructor(props) {
@@ -9,7 +10,7 @@ class Field extends PureComponent {
     }
 
     startPlay() {
-        console.log("HERE");
+        logic.game.startGame();
     }
 
     render() {

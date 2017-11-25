@@ -4,6 +4,7 @@ import {
     // userful
     getWeight } from './cards';
 import dragableCards from './cards-draggable';
+import game from './game';
 
 /*
     Cards
@@ -13,5 +14,12 @@ export const semantic = cardsSemantic;
 // userful
 export { getWeight };
 
-// dragable
+/*
+    Draggable
+*/
 export const dragable = dragableCards;
+
+/*
+    Game
+*/
+export { game };
