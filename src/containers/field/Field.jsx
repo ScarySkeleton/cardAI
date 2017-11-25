@@ -17,10 +17,15 @@ class Field extends PureComponent {
                     <div className='field__desk-pc'>
                     </div>
                     <div className='field__desk-game'>
+                        <div className='field__current'>
+                        </div>
+                        <div className='field__hangUp'>
+                        </div>
                     </div>
                     <div className='field__desk-human'>
                     </div>
                 </div>
+                
                 <div className='field__cards'>
                     <Card />
                 </div>

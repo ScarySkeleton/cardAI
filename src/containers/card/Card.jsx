@@ -32,7 +32,7 @@ class Card extends PureComponent {
                                 <img
                                     src={require('../../img/cards' + el.path.slice(1))}
                                     name={el.name}
-                                    className='card__block_img'
+                                    className='card__block-img'
                                     alt="smart-card-games" />
                             </div>
                         )

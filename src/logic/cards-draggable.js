@@ -1,4 +1,11 @@
-import { dragable } from "./logic";
+import {
+    // Field
+    gameFieldClass,
+    gameFieldCurrentPlay,
+    cardImgBlockCurrentPlayClass,
+    // Card
+    cardImgClass,
+    cardParentInitBlock } from './variables';
 
 let draggable = (function() {
     let dragObject = {};
@@ -47,20 +54,44 @@ let draggable = (function() {
 
     function finishDrag(e) {
         const dropElem = findDroppable(e);
-        console.log(dropElem);
+        // IF drop element null - this means, 
+        // that our card trying to put on some other field
+        if(!dropElem) {
+            dragObject.avatar.rollBack();
+        }
+
+        insertBlockToTheGameField(createBlockForDraggableCard(dragObject.elem), gameFieldCurrentPlay);
+        resetDraggableStyle(dragObject.avatar);
     }
 
     function findDroppable(event) {
         // need to hide avatar, because, when we call elementFromPoint
         //      always will return our avatar (zIndex max)
         dragObject.avatar.hidden = true;
-        const elem = document.elementFromPoint(event.clientX, event.ClientY);
+        const elem = document.elementFromPoint(event.clientX, event.clientY);
         dragObject.avatar.hidden = false;
 
         if(elem === null) {
             return null;
         }
-        return elem.closest('.card__block');
+
+        return elem.closest(gameFieldClass);
+    }
+
+    function createBlockForDraggableCard(elem) {
+        let imgContainer = document.createElement('div');
+        imgContainer.className = cardImgBlockCurrentPlayClass;
+        imgContainer.appendChild(elem);
+
+        return imgContainer;
+    }
+
+    function insertBlockToTheGameField(elem, to) { 
+        document.getElementsByClassName(to)[0].appendChild(elem);
+    }
+
+    function resetDraggableStyle(elem) {
+        elem.style = 'none';
     }
 
     const mousedown = (e) => {         
@@ -69,9 +100,15 @@ let draggable = (function() {
             return;
         }
     
-        let elem = e.target.closest('.card__block_img');    
+        let elem = e.target.closest(cardImgClass);
         // if card drag on the empty place
         if(!elem) {
+            return;
+        }
+        const parent = elem.parentElement;
+        // IF we trying to drag elem from the
+        // place, from where we don't want
+        if(!parent.className.includes(cardParentInitBlock)) {
             return;
         }
     
