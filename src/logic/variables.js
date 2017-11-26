@@ -10,6 +10,7 @@ export const gameFieldHangUpPlayClass = '.field__hangUp';
 export const gameFieldAIDesk = 'field__desk-ai';
 export const gameFieldHumanDesk = 'field__desk-human';
 
+// wrap for cards on the desk
 export const cardImgBlockCurrentPlayClass = '.field__img';
 export const cardImgBlockHangUpClass = '.field__img-hangUp';
 
