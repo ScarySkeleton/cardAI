@@ -3,3 +3,6 @@ export function importAll() {
     return files.keys();
 }
 
+export function generateClassFromName(name) {
+    return '.' + name;
+}

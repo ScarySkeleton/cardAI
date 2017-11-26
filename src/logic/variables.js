@@ -6,7 +6,9 @@ export const gameFieldCurrentPlay = 'field__current';
 export const gameFieldCurrentPlayClass = '.field__current';
 export const gameFieldHangUpPlayClass = '.field__hangUp';
 
-
+// Player's field 
+export const gameFieldAIDesk = 'field__desk-ai';
+export const gameFieldHumanDesk = 'field__desk-human';
 
 export const cardImgBlockCurrentPlayClass = '.field__img';
 export const cardImgBlockHangUpClass = '.field__img-hangUp';
