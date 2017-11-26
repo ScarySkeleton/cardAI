@@ -1,14 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import './card.scss';
 import * as logic from '../../logic/logic';
+import store from '../../services/store/index';
 
-class Card extends PureComponent {
+class Card extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            cards: logic.cards()
-        }
     }
 
     componentDidMount() {
@@ -21,9 +19,9 @@ class Card extends PureComponent {
 
     render() {
         return (
-            <div>
+            <div className='container card'>
                 {
-                    this.state.cards.sort((a,b) => {
+                    this.props.cards.sort((a,b) => {
                         return this.getGreater(a.name, b.name);
                     }).map((el, index) => {
                         return (

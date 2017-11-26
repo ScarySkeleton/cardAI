@@ -10,7 +10,7 @@
         background-color: $lemon;
         border: $borderRadSmall solid $gold;
 
-        &-pc {
+        &-ai {
             min-height: calc(#{$cardSizeMedium} + #{$paddingSmall});
             padding: $paddingSmall;
             background-color: $lightPink;
