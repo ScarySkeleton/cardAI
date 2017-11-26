@@ -71,10 +71,12 @@ let game = (function() {
     // TODO: Bug here: Sometimes we get's 5 cards, but should 6
     const giveOutCardsForAI = (cardsIndexes, cards) => {
         console.log("AI card array", cardsIndexes);
-        cardsIndexes.forEach(element => {
+        const len = cardsIndexes.length;
+        for(let i = 0; i < len; i += 1) {
+            console.log(i, cards[cardsIndexes[i]], cards);
             // Can be optimize
-            game.AI.desk.appendChild(cards[element]);
-        });
+            game.AI.desk.appendChild(cards[cardsIndexes[i]]);
+        };
     }
 
     // TODO: Bug here: Sometimes we get's 5 cards, but should 6
@@ -83,15 +85,20 @@ let game = (function() {
         if(cardsIndexes.length !== game.game.init.cardsCount) {
             giveOutCardsForHuman(cardsIndexes.splice(0, game.game.init.cardsCount), cards, ++humanNumber);
         }
-        cardsIndexes.forEach(element => {
+        // cardsIndexes.forEach(element => {
+        //     // Can be optimize
+        //     game.Humans[humanNumber].desk.appendChild(cards[element]);
+        // });
+        const len = cardsIndexes.length;
+        for(let i = 0; i < len; i += 1) {
+            console.log(i, cards[cardsIndexes[i]], cards);
             // Can be optimize
-            game.Humans[humanNumber].desk.appendChild(cards[element]);
-        });
+            game.Humans[humanNumber].desk.appendChild(cards[cardsIndexes[i]]);
+        };
     }
 
     const giveOutCards = ({ randomCardsIndexes: cardsIndexes, cards }) => {
         const countOfCardsForEach = game.game.init.cardsCount;
-        console.log(game);
         if(game.AI) {
             giveOutCardsForAI(cardsIndexes.splice(0, countOfCardsForEach), cards);
         }
@@ -118,6 +125,7 @@ let game = (function() {
     }
 
     const startGame = () => {
+        console.clear();
         // Reset prev game data
         game = {};
         // Choose the game
