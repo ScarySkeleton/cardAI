@@ -6,3 +6,7 @@ export function importAll() {
 export function generateClassFromName(name) {
     return '.' + name;
 }
+
+export function getCountOfObjProp(obj) {
+    return Object.keys(obj).length;
+}

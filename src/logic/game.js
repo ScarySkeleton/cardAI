@@ -6,7 +6,8 @@ import {
 import { 
     fool } from './rule';
 import {
-    generateClassFromName } from './Utils';
+    generateClassFromName,
+    getCountOfObjProp } from './Utils';
 
 let game = (function() {
 
@@ -17,44 +18,76 @@ let game = (function() {
         return fool;
     }
 
+    // Set val to the global game state
+    const setToGameState = (key, val) => {
+        game[key] = val;
+    }
+
+    const updateGameState = (newState) => {
+        if(game === newState) {
+            return;
+        }
+
+        game = newState;
+    }
+
     // Also, there we create AI, that participate in game
     const getAIDesk = () => {
-        return document.getElementsByClassName(gameFieldAIDesk)[0];
+        const aiDeskElem = document.getElementsByClassName(gameFieldAIDesk)[0];
+        return {
+            desk: aiDeskElem
+        }
     }
 
     // Also there we create humens, that playing in game
     const getHumansDesk = () => {
-        const humensArray = [];
-        const humansDesk = document.getElementsByClassName(gameFieldHumanDesk);
-        let humenDeskCount = humansDesk.length;
+        const humans = {};
+
+        const humansDeskElements = document.getElementsByClassName(gameFieldHumanDesk);
+        let humenDeskElementsCount = humansDeskElements.length;
+
         let i = 0;
 
-        while(i < humenDeskCount) {
-            humensArray.push({
-                desk: humansDesk[i]
-            });
+        while(i < humenDeskElementsCount) {
+            humans[i] = {
+                desk: humansDeskElements[i]
+            };
             i += 1;
         }
 
-        return humensArray;
+        return humans;
     }
 
     const getPlayersDesk = () => {
-        if(game.game.withAI && game.AI) {
-            game.AI.desk = getAIDesk();
-        }
+        console.log(game);
 
-        game.Humans = getHumansDesk();
+        if(game.playing.withAI && game.ai) {
+            game.ai = getAIDesk();
+        }
+        
+        game.humans = getHumansDesk();
+
+        console.log(game);
     }
 
     const getAllAvailableCards = () => {
-        return document.getElementsByClassName(cardImg);
+        const cards = {};
+
+        const cardsArr = document.getElementsByClassName(cardImg);
+        const cardsCount = cardsArr.length;
+        // Can be optimize
+        for(let i = 0; i < cardsCount; i += 1) {
+            cards[i] = cardsArr[i];
+        }
+
+        return cards;
     }
 
     const getRandomIndexOfCards = (initCardsCount, playersCount) => {
         const randomNumbers = [];
         const neededCountOfRandomNumber = initCardsCount * playersCount;
-        const cardsInGame = getAllAvailableCards().length;
+        // Minus one, because we have array of cards that start from 0 index
+        const cardsInGame = (game.cards) ? getCountOfObjProp(game.cards) - 1  : getCountOfObjProp(getAllAvailableCards()) - 1;
 
         let i = 0;
         while(i < neededCountOfRandomNumber) {
@@ -68,41 +101,32 @@ let game = (function() {
         return randomNumbers;
     }
 
-    // TODO: Bug here: Sometimes we get's 5 cards, but should 6
-    const giveOutCardsForAI = (cardsIndexes, cards) => {
-        console.log("AI card array", cardsIndexes);
+    const giveOutCardsForAI = (cardsIndexes) => {
+        const cards = game.cards;
         const len = cardsIndexes.length;
         for(let i = 0; i < len; i += 1) {
-            console.log(i, cards[cardsIndexes[i]], cards);
-            // Can be optimize
-            game.AI.desk.appendChild(cards[cardsIndexes[i]]);
+            // Might can be optimize
+            game.ai.desk.appendChild(cards[cardsIndexes[i]]);
         };
     }
 
-    // TODO: Bug here: Sometimes we get's 5 cards, but should 6
-    const giveOutCardsForHuman = (cardsIndexes, cards, humanNumber = 0) => {
-        console.log("Human card array", cardsIndexes);
-        if(cardsIndexes.length !== game.game.init.cardsCount) {
-            giveOutCardsForHuman(cardsIndexes.splice(0, game.game.init.cardsCount), cards, ++humanNumber);
+    const giveOutCardsForHuman = (cardsIndexes, humanNumber = 0) => {
+        if(cardsIndexes.length !== game.playing.init.cardsCount) {
+            giveOutCardsForHuman(cardsIndexes.splice(0, game.playing.init.cardsCount), ++humanNumber);
         }
-        // cardsIndexes.forEach(element => {
-        //     // Can be optimize
-        //     game.Humans[humanNumber].desk.appendChild(cards[element]);
-        // });
-        const len = cardsIndexes.length;
-        for(let i = 0; i < len; i += 1) {
-            console.log(i, cards[cardsIndexes[i]], cards);
-            // Can be optimize
-            game.Humans[humanNumber].desk.appendChild(cards[cardsIndexes[i]]);
-        };
+        const cards = game.cards;
+        cardsIndexes.forEach(element => {
+            // Might can be optimize
+            game.humans[humanNumber].desk.appendChild(cards[element]);
+        });
     }
 
-    const giveOutCards = ({ randomCardsIndexes: cardsIndexes, cards }) => {
-        const countOfCardsForEach = game.game.init.cardsCount;
-        if(game.AI) {
-            giveOutCardsForAI(cardsIndexes.splice(0, countOfCardsForEach), cards);
+    const giveOutCards = cardsIndexes => {
+        const countOfCardsForEach = game.playing.init.cardsCount;
+        if(game.ai) {
+            giveOutCardsForAI(cardsIndexes.splice(0, countOfCardsForEach));
         }
-        giveOutCardsForHuman(cardsIndexes, cards);
+        giveOutCardsForHuman(cardsIndexes);
     }
 
     /*
@@ -111,17 +135,17 @@ let game = (function() {
             2. gameCustomSettings: Customs settings (for example: count
                 player in the game)
     */
-    const setInitGameState = (initRule, gameCustomSettings) => {
+    const setInitGameState = (initRule = game.playing.init, gameCustomSettings = game.customSettings) => {
         const playersCount = gameCustomSettings.playersCount;
-        const randomCardsIndexes = getRandomIndexOfCards(initRule.cardsCount, playersCount);
+
         const cards = getAllAvailableCards();
+        // Set cards to game state
+        setToGameState("cards", cards);
 
+        const randomCardsIndexes = getRandomIndexOfCards(initRule.cardsCount, playersCount);
+        
         getPlayersDesk();
-
-        giveOutCards({
-            randomCardsIndexes,
-            cards
-        })
+        giveOutCards(randomCardsIndexes);
     }
 
     const startGame = () => {
@@ -129,28 +153,32 @@ let game = (function() {
         // Reset prev game data
         game = {};
         // Choose the game
-        game.game = chooseTheGame();
+        setToGameState("playing", chooseTheGame());
 
         // Collect game custom settings
         const gameCustomSettings = {
             playersCount: 1
         }
-        game.customSettings = gameCustomSettings;
+        setToGameState("customSettings", gameCustomSettings);
         
         // Create humans object
-        game.Humans = {};
+        setToGameState("humans", {});
 
         // Check if we are playing with AI 
-        const withAI = game.game.withAI;
+        const withAI = game.playing.withAI;
         if(withAI) {
             // IF we are playing with AI - need to increment the 
             // count of players
-            game.customSettings.playersCount = game.customSettings.playersCount + 1;
+            updateGameState(Object.assign({}, game, {
+                customSettings: {
+                    playersCount: game.customSettings.playersCount + 1
+                }
+            }));
             // Create AI object
-            game.AI = {};
+            setToGameState("ai", {});
         }        
         
-        setInitGameState(fool.init, game.customSettings);   
+        setInitGameState();   
     }
 
     const endGame = () => {
