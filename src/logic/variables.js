@@ -21,4 +21,12 @@ export const card = 'card';
 export const cardClass = '.card';
 export const cardImg = 'card__block-img';
 export const cardImgClass = '.card__block-img';
+export const cardImgInit = 'card__block-img-init';
+export const cardImgInitClass = '.card__block-img-init';
 export const cardParentInitBlock = 'card__block';
+
+/*
+    Can dragg from
+*/
+export const canDragg = [cardImgClass];
+export const canPutIn = [gameFieldClass, gameFieldHumanDesk];

@@ -1,6 +1,7 @@
 import {
     card,
     cardImg,
+    cardImgInit, 
     gameFieldAIDesk,
     gameFieldHumanDesk } from './variables';
 import { 
@@ -59,21 +60,18 @@ let game = (function() {
     }
 
     const getPlayersDesk = () => {
-        console.log(game);
 
         if(game.playing.withAI && game.ai) {
             game.ai = getAIDesk();
         }
         
         game.humans = getHumansDesk();
-
-        console.log(game);
     }
 
     const getAllAvailableCards = () => {
         const cards = {};
 
-        const cardsArr = document.getElementsByClassName(cardImg);
+        const cardsArr = document.getElementsByClassName(cardImgInit);
         const cardsCount = cardsArr.length;
         // Can be optimize
         for(let i = 0; i < cardsCount; i += 1) {
@@ -117,6 +115,9 @@ let game = (function() {
         const cards = game.cards;
         cardsIndexes.forEach(element => {
             // Might can be optimize
+            // Del init class
+            cards[element].classList.remove(cardImgInit);
+            // Give cards to human
             game.humans[humanNumber].desk.appendChild(cards[element]);
         });
     }
@@ -127,6 +128,11 @@ let game = (function() {
             giveOutCardsForAI(cardsIndexes.splice(0, countOfCardsForEach));
         }
         giveOutCardsForHuman(cardsIndexes);
+    }
+
+    const chooseTrump = () => {
+        const availableCards = getAllAvailableCards();
+        return availableCards[Math.floor(Math.random() * getCountOfObjProp(availableCards))];
     }
 
     /*
@@ -146,6 +152,7 @@ let game = (function() {
         
         getPlayersDesk();
         giveOutCards(randomCardsIndexes);
+        console.log(chooseTrump());
     }
 
     const startGame = () => {

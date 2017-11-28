@@ -1,11 +1,12 @@
 import {
     // Field
-    gameFieldClass,
+    canDragg,
+    canPutIn,
     gameFieldCurrentPlay,
     cardImgBlockCurrentPlayClass,
+    gameFieldHumanDesk,
     // Card
-    cardImgClass,
-    cardParentInitBlock } from './variables';
+    cardImgClass } from './variables';
 
 let draggable = (function() {
     let dragObject = {};
@@ -76,7 +77,13 @@ let draggable = (function() {
             return null;
         }
 
-        return elem.closest(gameFieldClass);
+        for(let i = 0, len = canPutIn.length; i < len; i += 1) {
+            if(elem.closest(canPutIn[i])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     function createBlockForDraggableCard(elem) {
@@ -101,7 +108,14 @@ let draggable = (function() {
             return;
         }
     
-        let elem = e.target.closest(cardImgClass);
+        let elem = (function() {
+            for(let i = 0, len = canDragg.length; i < len; i += 1) {
+                if(e.target.closest(canDragg[i])) {
+                    const elem = e.target.closest(canDragg[i]);
+                    return elem;
+                }
+            }
+        })();
         // if card drag on the empty place
         if(!elem) {
             return;
@@ -109,7 +123,7 @@ let draggable = (function() {
         const parent = elem.parentElement;
         // IF we trying to drag elem from the
         // place, from where we don't want
-        if(!parent.className.includes(cardParentInitBlock)) {
+        if(!parent.className.includes(gameFieldHumanDesk)) {
             return;
         }
     

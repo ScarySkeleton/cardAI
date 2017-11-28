@@ -62,6 +62,10 @@ function getMuzzleWeight(muzzle) {
     return +muzzle.weight;
 }
 
+export function removeCardClass(card, class) {
+    card.classList.remove()
+}
+
 const muzzles_weight = [
     {
         name: 'jack',
